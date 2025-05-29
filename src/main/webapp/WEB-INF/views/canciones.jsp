@@ -14,15 +14,21 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="c" items="${canciones}">
+            <c:forEach var="c" items="${listaCanciones}">
+
                 <tr>
                     <td>${c.titulo}</td>
                     <td>${c.artista}</td>
-		<td><a href="${pageContext.request.contextPath}/canciones/detalle/${c.id}">Detalle</a>
-</td>
+                    <td><a href="${pageContext.request.contextPath}/canciones/detalle/${c.id}">Detalle</a></td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
+
+    <br>
+    <a href="${pageContext.request.contextPath}/canciones/formulario/agregar">
+        <button>Agregar Canción</button>
+    </a>
 </body>
 </html>
+

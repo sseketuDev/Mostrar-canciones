@@ -1,6 +1,7 @@
 package com.VicenteNieto.modelos;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.util.Date;
 
 @Entity
@@ -11,17 +12,40 @@ public class Cancion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Size(min = 5, message = "El título debe tener al menos 5 caracteres")
     private String titulo;
+
+    @Size(min = 3, message = "El artista debe tener al menos 3 caracteres")
     private String artista;
+
+    @Size(min = 3, message = "El álbum debe tener al menos 3 caracteres")
     private String album;
+
+    @Size(min = 3, message = "El género debe tener al menos 3 caracteres")
     private String genero;
+
+    @Size(min = 3, message = "El idioma debe tener al menos 3 caracteres")
     private String idioma;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCreacion;
+    @Column(updatable = false)
+    private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaActualizacion;
+    private Date updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
+
+    // Constructor vacío necesario para JPA
+    public Cancion() {}
 
     // Getters y Setters
 
@@ -73,20 +97,12 @@ public class Cancion {
         this.idioma = idioma;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Date getFechaActualizacion() {
-        return fechaActualizacion;
-    }
-
-    public void setFechaActualizacion(Date fechaActualizacion) {
-        this.fechaActualizacion = fechaActualizacion;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 }
 
